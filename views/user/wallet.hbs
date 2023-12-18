@@ -1,0 +1,86 @@
+<h3 class="welcome"> Welcome to your wallet {{userInfo.name}}</h3>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+      <div class="card-header">Total price when you bought coins</div>
+      <div class="card-body">
+        <p class="card-text">{{walletTotal}} $</p>
+      </div>
+    </div>
+   
+  </div>
+  <div class="col-sm-6">
+    <div class="card border-success mb-3" class="border" style="max-width: 18rem;">
+      <div class="card-header">The worth of your wallet</div>
+      <div class="card-body">
+        <p class="card-text">{{totalWorth}} $</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{#if message}}
+<p  style="font-size:16px" class="alert alert-warning" role="alert" style="background-color:#beb9db !important ">{{message}}</p>
+{{/if}}
+
+<form action="/user/wallet" method="POST">
+  <label>
+    Bitcoin Name
+    <select class="form-select"  name="name">
+      {{#each data.data}}
+        <option class="dropdown-item">{{name}}</option>
+      {{/each}}
+    </select>
+  </label>
+  <label>
+    Amount
+    <input class="form-control" type="text" name="amount" placeholder="amount" />
+  </label>
+  <button type="submit" class="btn btn-light" style="background-color: #8bd3c7 !important; color:white;">Add the value</button>
+</form>
+{{#if walletInfo}}
+<table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Sum</th>
+        <th scope="col">The Price You Bought</th>
+        <th scope="col">The Current Price </th>
+        <th scope="col">Delete </th>
+      </tr>
+    </thead>
+<tbody>
+  {{#each walletInfo}}
+  <tr>
+    <td>
+      {{name}}
+    </td>
+    <td>
+      {{amount}}
+    </td>
+    <td>
+      {{sum}}
+    </td>
+    <td>
+      {{currentPrice}}
+      
+    </td>
+       {{#with (lookup ../apiCurrentValue @index)}}
+          <td>{{this}}</td>
+        {{/with}}
+          <td>
+            <form action="/user/wallet-delete" method="POST"> 
+            <input type="hidden" name="coinForm" value="{{name}}">
+            <button  class="btn btn-light" style="background-color : #f1968a !important ; color:white;"type="submit">Delete</button>
+            </form>
+          </td>
+  </tr>
+  {{/each}}
+
+</tbody>
+</table>
+
+  {{/if}}

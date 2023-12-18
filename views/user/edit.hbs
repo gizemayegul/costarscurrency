@@ -1,0 +1,51 @@
+<p class="lead">Edit your profile</p>
+      {{#if successMessage}}
+    <p style="font-size:16px" class="alert alert-warning" role="alert" style="background-color:#beb9db !important ">{{successMessage}}</p>
+  {{/if}}
+  {{#if errorMessage}}
+    <p style="font-size:16px" class="alert alert-warning" role="alert" style="background-color:#beb9db !important ">{{errorMessage}}</p>
+  {{/if}}
+<div class="form-container">
+<form action="/user/edit" method="post" class="edit-form">
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      type="text"
+      name="name"
+      value={{userInfo.name}}
+      class="form-control"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input
+      type="text"
+      name="email"
+      value={{userInfo.email}}
+      class="form-control"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="current-password" class="form-label">Current Password</label>
+    <input type="password" name="currentPassword" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label for="new-password" class="form-label">New Password</label>
+    <input type="password" name="newPassword" class="form-control" />
+  </div>
+  <div class="mb-3">
+    <label for="confirm-new-password" class="form-label">Confirm New Password</label>
+    <input type="password" name="confirmNewPassword" class="form-control" />
+  </div>
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-success">Submit</button>
+    <button
+      type="submit"
+      formaction="/user/delete"
+      class="btn btn-danger"
+    >Delete my profile</button>
+  </div>
+
+  </div>
+
+</form>
